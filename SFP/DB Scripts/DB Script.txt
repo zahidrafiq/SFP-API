@@ -1,0 +1,2278 @@
+
+GO
+/****** Object:  Schema [sec]    Script Date: 9/21/2018 2:46:02 AM ******/
+CREATE SCHEMA [sec]
+GO
+/****** Object:  UserDefinedTableType [dbo].[ArrayInt]    Script Date: 9/21/2018 2:46:02 AM ******/
+CREATE TYPE [dbo].[ArrayInt] AS TABLE(
+	[ID] [int] NULL
+)
+GO
+/****** Object:  StoredProcedure [dbo].[Find_Text_In_SP]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE Procedure [dbo].[Find_Text_In_SP]
+@StringToSearch varchar(100)
+AS
+BEGIN
+SET @StringToSearch = '%' +@StringToSearch + '%'
+SELECT Distinct SO.Name
+FROM sysobjects SO (NOLOCK)
+INNER JOIN syscomments SC (NOLOCK) on SO.Id = SC.ID
+AND SO.Type = 'P'
+AND SC.Text LIKE @stringtosearch
+ORDER BY SO.Name
+
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[GetEmailRequestsByUniqueID]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE Procedure [dbo].[GetEmailRequestsByUniqueID]
+	@UniqueID varchar(30)
+AS 
+BEGIN
+	
+	Select * from dbo.EmailRequests
+	Where UniqueID = @UniqueID
+
+END
+
+GO
+/****** Object:  StoredProcedure [sec].[EnableDisablePermission]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [sec].[EnableDisablePermission]
+    @PermissionId int,
+	@IsActive bit,
+	@ActivityTime datetime,
+	@ActivityBy int
+AS
+BEGIN
+	
+	UPDATE sec.Permissions SET IsActive = @IsActive, ModifiedOn = @ActivityTime, Modifiedby = @ActivityBy
+	Where ID = @PermissionId
+	
+	Select @PermissionId
+END
+
+GO
+/****** Object:  StoredProcedure [sec].[EnableDisableRole]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [sec].[EnableDisableRole]
+    @RoleId int,
+	@IsActive bit,
+	@ActivityTime datetime,
+	@ActivityBy int
+AS
+BEGIN
+	
+	UPDATE sec.Roles SET IsActive = @IsActive, ModifiedOn = @ActivityTime, Modifiedby = @ActivityBy
+	Where ID = @RoleId
+	
+	Select @RoleId
+END
+
+GO
+/****** Object:  StoredProcedure [sec].[EnableDisableUser]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [sec].[EnableDisableUser]
+    @UserId int,
+	@IsActive bit,
+	@ActivityTime datetime,
+	@ActivityBy int
+AS
+BEGIN
+	
+	UPDATE sec.Users SET IsActive = @IsActive, ModifiedOn = @ActivityTime, Modifiedby = @ActivityBy
+	Where UserID = @UserId
+	
+	Select @UserId
+END
+
+GO
+/****** Object:  StoredProcedure [sec].[GetAllPermissions]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE Procedure [sec].[GetAllPermissions]
+AS 
+BEGIN
+		-- User Permissions
+		Select distinct p.* from sec.Permissions p
+END
+
+
+GO
+/****** Object:  StoredProcedure [sec].[GetRolePermissionById]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE Procedure [sec].[GetRolePermissionById]
+	@UserId int
+AS 
+BEGIN
+		-- User Roles
+		Select distinct r.* from sec.Roles r 
+		INNER JOIN sec.UserRoles ur on r.ID = ur.RoleId 
+		and ur.UserId = @UserId
+
+		-- User Permissions
+		Select distinct p.*,pm.RoleId from sec.Permissions p 
+		INNER JOIN [sec].[PermissionsMapping] pm on p.Id = pm.PermissionId
+		INNER JOIN sec.UserRoles ur on pm.RoleId = ur.RoleId and ur.UserId = @UserId
+
+END
+
+
+GO
+/****** Object:  StoredProcedure [sec].[IsValidResetToken]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE Procedure [sec].[IsValidResetToken]
+@reset_token varchar(50)
+AS
+BEGIN
+	IF (Select count(*) from sec.users Where ResetToken = @reset_token and IsActive = 1) = 1
+	BEGIN
+		Select cast(1 as bit)
+		RETURN;
+	END
+
+	Select cast(0 as bit)
+
+END
+
+
+GO
+/****** Object:  StoredProcedure [sec].[SavePermission]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [sec].[SavePermission]
+	@Id int,
+	@Name varchar(50),
+	@Description varchar(50),
+	@ActivityTime datetime,
+	@ActivityBy int
+AS
+BEGIN
+	if (@Id > 0)
+	BEGIN
+		Update sec.Permissions
+			SET 
+			Name = @Name, 
+			Description = @Description,
+			ModifiedOn = @ActivityTime,
+			Modifiedby = @ActivityBy
+			where Id=@Id
+	END
+	ELSE
+	BEGIN
+		
+		INSERT INTO sec.Permissions(Name ,Description,CreatedOn,CreatedBy,IsActive)
+		VALUES( @Name ,@Description,@ActivityTime,@ActivityBy,1)
+		
+		Select @Id = SCOPE_IDENTITY()
+	END
+
+	Select @Id
+END
+
+GO
+/****** Object:  StoredProcedure [sec].[SaveRolePermissionMapping]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE Procedure [sec].[SaveRolePermissionMapping]
+@pRoleID int,
+@pList ArrayInt READONLY --Here ArrayInt is user defined type
+AS
+BEGIN
+
+	--Declare @pRoleID int = 2
+	--Declare @pList ArrayInt
+	--insert into @pList Select 1
+	--insert into @pList Select 3
+
+	Delete from [sec].[PermissionsMapping] Where RoleId = @pRoleID and PermissionId NOT IN (select ID from @pList)
+
+	Insert into [sec].[PermissionsMapping](RoleId,PermissionId)
+	select @pRoleID, ID from @pList 
+	where ID not IN (select PermissionID from [sec].[PermissionsMapping] Where RoleId = @pRoleID)
+
+	Select @pRoleID
+
+END
+
+
+
+GO
+/****** Object:  StoredProcedure [sec].[SaveRoles]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [sec].[SaveRoles]
+	@RoleId int,
+	@Name varchar(50),
+	@Description varchar(50),
+	@ActivityTime datetime,
+	@ActivityBy int
+AS
+BEGIN
+	
+	if (@RoleId > 0)
+	BEGIN
+		Update sec.Roles
+			SET 
+			Name = @Name, 
+			Description = @Description,
+			ModifiedBy=@ActivityBy,
+			ModifiedOn=@ActivityTime
+		WHERE Id = @RoleId
+
+	END
+	ELSE
+	BEGIN
+		
+		INSERT INTO sec.Roles(Name ,Description,CreatedBy,CreatedOn,IsActive)
+		VALUES( @Name ,@Description,@ActivityBy,@ActivityTime,1)
+		
+		Select @RoleId = SCOPE_IDENTITY()
+	END
+
+	Select @RoleId
+END
+
+GO
+/****** Object:  StoredProcedure [sec].[SaveUserRoleMapping]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE Procedure [sec].[SaveUserRoleMapping]
+@pUserID int,
+@pList ArrayInt READONLY --Here ArrayInt is user defined type
+AS
+BEGIN
+
+	--Declare @pUserID int = 2
+	--Declare @pList ArrayInt
+	--insert into @pList Select 1
+	--insert into @pList Select 3
+
+	Delete from [sec].[UserRoles] Where RoleId = @pUserID and RoleId NOT IN (select ID from @pList)
+
+	Insert into [sec].[UserRoles](UserId,RoleId)
+	select @pUserID, ID from @pList 
+	where ID not IN (select RoleId from [sec].[UserRoles] Where RoleId = @pUserID)
+
+	Select @pUserID
+
+END
+
+
+
+GO
+/****** Object:  StoredProcedure [sec].[SaveUsers]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [sec].[SaveUsers]
+		@UserId int,
+	   @Login varchar(50)
+	  ,@Password varchar(50)
+      ,@Name varchar(100)
+      ,@Email varchar(100),
+	  @ActivityTime datetime,
+	  @ActivityBy int
+AS
+BEGIN
+	
+	if (@UserId > 0)
+	BEGIN
+
+		Update sec.Users
+			SET 
+			Login = @Login, 
+			Name = @Name, 
+			Email=@Email, 
+			ModifiedOn = @ActivityTime,
+			Modifiedby = @ActivityBy
+		
+		WHERE UserId = @UserId
+
+	END
+	ELSE
+	BEGIN
+		
+		INSERT INTO sec.Users(Login , Password , Name ,Email, CreatedOn,CreatedBy,IsActive)
+		VALUES(@Login , @Password , @Name ,@Email,@ActivityTime,@ActivityBy,1)
+		
+		Select @UserId = SCOPE_IDENTITY()
+	END
+
+	Select @UserId
+END
+
+GO
+/****** Object:  StoredProcedure [sec].[SearchForgotPasswordLog]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE PROCEDURE [sec].[SearchForgotPasswordLog]
+	@Login varchar(100),
+	@startDate date,
+	@endDate date,
+	@pageSize int,
+	@pageIndex int
+AS
+	BEGIN
+		Select count(*) 
+		from dbo.ForgotPasswordLog rmd
+		where (rmd.Login like '%'+@Login + '%'
+			  and (cast(rmd.EntyDate as date) Between @startDate and @endDate) )
+			
+
+	Select ID, Login, Token, IPAddress as MachineIP, Found, URL, EntyDate, IsUsed
+		from dbo.ForgotPasswordLog rmd
+		where (rmd.Login like '%'+@Login + '%'
+			  and (cast(rmd.EntyDate as date) Between @startDate and @endDate) )
+		 Order by rmd.ID DESC	  
+		OFFSET @pageIndex*@pageSize ROWS
+		FETCH NEXT @pageSize ROWS ONLY
+END
+
+GO
+/****** Object:  StoredProcedure [sec].[SearchLoginHistory]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE PROCEDURE [sec].[SearchLoginHistory]
+	@login varchar(20),
+	@machineip varchar(20),
+	@startDate date,
+	@endDate date,
+	@pageSize int,
+	@pageIndex int
+AS
+	BEGIN
+		Select count(*) 
+		from sec.[LoginHistory] rmd
+		where (rmd.LoginID like '%'+@login + '%'
+			  and rmd.MachineIP like '%'+ @machineip + '%'
+			  and (cast(rmd.LoginTime as date) Between @startDate and @endDate) )
+			
+
+	Select LoginHistoryID,UserID,LoginID,MachineIP,LoginTime 
+		from sec.[LoginHistory] rmd
+		where (rmd.LoginID like '%'+@login + '%'
+			  and rmd.MachineIP like '%'+ @machineip + '%'
+			  and (cast(rmd.LoginTime as date) Between @startDate and @endDate))
+		 Order by rmd.LoginHistoryID DESC	  
+		OFFSET @pageIndex*@pageSize ROWS
+		FETCH NEXT @pageSize ROWS ONLY
+END
+
+
+
+GO
+/****** Object:  StoredProcedure [sec].[SearchUserForAutoComplete]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE Procedure [sec].[SearchUserForAutoComplete]
+@key varchar(20)
+As 
+Begin
+	
+	Select UserId, Login, Name
+	from sec.Users
+	where Login like '%' +@key+ '%' 
+	OR Name like '%' +@key+ '%' 
+	And IsActive = 1
+End
+
+GO
+/****** Object:  StoredProcedure [sec].[SearchUsers]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE Procedure [sec].[SearchUsers]
+	@textToSearch varchar(20),
+	@isactive int,
+	@pageSize int,
+	@pageIndex int
+	
+AS 
+BEGIN
+		Select count(*) 
+		from [sec].[Users] rmd 
+		where (rmd.Name like '%'+ @textToSearch + '%'
+			  OR rmd.email like '%'+ @textToSearch + '%'
+			  OR rmd.Login like '%'+ @textToSearch + '%')
+			  And rmd.IsActive = case when @isactive = -1 then rmd.IsActive else @isactive end
+	
+
+		SELECT UserId, Login, Name, Email, IsActive
+		 from [sec].[Users] rmd 
+		where (rmd.Name like '%'+ @textToSearch + '%'
+			  OR rmd.email like '%'+ @textToSearch + '%'
+			  OR rmd.Login like '%'+ @textToSearch + '%')
+			  And rmd.IsActive = case when @isactive = -1 then rmd.IsActive else @isactive end
+		Order by rmd.UserId
+		OFFSET @pageIndex*@pageSize ROWS
+		FETCH NEXT @pageSize ROWS ONLY
+END
+
+
+
+
+
+GO
+/****** Object:  StoredProcedure [sec].[UpdatePassword]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+create Procedure [sec].[UpdatePassword]
+@Token_Login varchar(50),
+@CurrPassword varchar(50),
+@NewPassword varchar(50),
+@CurrTime datetime,
+@ModifiedBy int,
+@IsChangePassword bit
+AS
+BEGIN
+	
+	IF @IsChangePassword = 1 -- Change Password
+	BEGIN
+		IF  (SELECT count(*) FrOM sec.Users
+			Where Login =@Token_Login AND Password = @CurrPassword and IsActive = 1 and IsDisabledForLogin =0) = 1
+		BEGIN
+			Update sec.Users set Password = @NewPassword, ModifiedBy =@ModifiedBy, ModifiedOn = @CurrTime 
+			Where Login =@Token_Login AND Password = @CurrPassword and IsActive = 1 and IsDisabledForLogin =0
+			Select cast(1 as bit)
+			RETURN;
+		END
+	END
+	ELSE  -- RESET Password
+	BEGIN
+		IF (Select count(*) from sec.Users Where ResetToken =@Token_Login  and IsActive = 1) = 1
+		BEGIN
+			Update sec.Users set Password = @NewPassword, ModifiedBy =@ModifiedBy, ModifiedOn = @CurrTime, ResetToken=null 
+			Where ResetToken =@Token_Login  and IsActive = 1
+
+			Update dbo.ForgotPasswordLog SET IsUsed = 1,UpdatedOn = @CurrTime Where Token = @Token_Login
+
+			Select cast(1 as bit)
+			RETURN;
+		END
+	END
+
+	Select cast(0 as bit)
+
+END
+
+
+
+
+GO
+/****** Object:  StoredProcedure [sec].[UpdateResetPasswordToken]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE PROCEDURE [sec].[UpdateResetPasswordToken]
+	@email_login varchar(50),
+	@guid varchar(50),
+	@ipaddress varchar(20),
+	@currTime datetime,
+	@url varchar(100)
+AS
+BEGIN
+	Declare @email varchar(50) = ''
+	
+
+	IF( Select count(*) FROM sec.Users where login = @email_login or email = @email_login
+		And isactive = 1 and IsDisabledForLogin = 0) = 1
+	BEGIN
+		Update sec.Users Set ResetToken=@guid 
+		where login = @email_login or email = @email_login
+		And isactive = 1 and IsDisabledForLogin = 0
+
+		SELECT @email = email FROM sec.Users 
+		where login = @email_login or email = @email_login
+		And isactive = 1 and IsDisabledForLogin = 0
+
+		insert into dbo.ForgotPasswordLog(Login,Token,IPAddress,EntyDate,IsUsed,URL,Found)
+		Select @email_login,@guid,@ipaddress,@currTime,0,@url,1
+	END
+	ELSE
+	BEGIN
+		insert into dbo.ForgotPasswordLog(Login,Token,IPAddress,EntyDate,IsUsed,URL,Found)
+		Select @email_login,@guid,@ipaddress,@currTime,0,'',0
+	END
+	
+	Select @email
+
+END
+
+
+
+
+
+GO
+/****** Object:  StoredProcedure [sec].[ValidateUser]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE Procedure [sec].[ValidateUser]
+	@Login varchar(50),
+	@Password varchar(50),
+	@CurrTime datetime,
+	@MachineIP varchar(20),
+	@IgnorePassword bit,
+	@LoggerLoginID varchar(50),
+	@Email varchar(50)
+AS 
+BEGIN
+
+	--DECLARE @Login varchar(50) = ''
+	--DECLARE @Password varchar(50) = '123'
+	--DECLARE @CurrTime datetime = getdate()
+	--DECLARE @MachineIP varchar(20) = ''
+	--DECLARE @IgnorePassword bit = 0
+	--DECLARE @LoggerLoginID varchar(50) = ''
+
+	Declare @UserId int = 0	
+	Declare @isActive bit =0
+	Declare @isDisabled bit =0
+
+	if(@IgnorePassword = 0)
+	BEGIN
+		SELECT @UserId=UserId, @isActive = IsActive ,@isDisabled =Isnull(IsDisabledForLogin,0)
+		from sec.Users u where (Login = @Login OR Email = @Login) and Password = @Password 	
+	END
+	else
+	BEGIN
+		SELECT @UserId=UserId, @isActive = IsActive ,@isDisabled =Isnull(IsDisabledForLogin,0)
+		from sec.Users u where Login = @Login OR Email=@Email  	
+	END
+
+	Select UserId, Login, Password, Name, Email, CreatedBy, CreatedOn, Modifiedby, ModifiedOn, IsActive, isnull(IsDisabledForLogin,0) as IsDisabledForLogin, ResetToken 
+	from sec.Users where UserID = @UserId
+
+	if @UserId > 0  AND @isActive = 1 AND @isDisabled = 0
+	BEGIN
+		
+		Select distinct r.* from sec.Roles r 
+		INNER JOIN sec.UserRoles ur on r.ID = ur.RoleId and ur.UserId = @UserId
+		Where r.IsActive = 1
+
+		Select distinct p.*,pm.RoleId from sec.Permissions p 
+		INNER JOIN [sec].[PermissionsMapping] pm on p.Id = pm.PermissionId
+		INNER JOIN sec.UserRoles ur on pm.RoleId = ur.RoleId and ur.UserId = @UserId
+		Where p.IsActive = 1
+		
+	END
+
+	IF @LoggerLoginID != ''
+			SET @Login = @Login + '_By_' + @LoggerLoginID
+
+		INSERT INTO sec.LoginHistory(UserID, LoginID, MachineIP, LoginTime)
+		Select @UserId,@Login,@MachineIP,@CurrTime
+END
+
+GO
+/****** Object:  Table [dbo].[EmailRequests]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[EmailRequests](
+	[EmailRequestID] [bigint] IDENTITY(1,1) NOT NULL,
+	[Subject] [varchar](150) NOT NULL,
+	[MessageBody] [varchar](500) NOT NULL,
+	[MessageParameters] [varchar](500) NULL,
+	[EmailTo] [varchar](200) NOT NULL,
+	[EmailCC] [varchar](200) NULL,
+	[EmailBCC] [varchar](200) NULL,
+	[EmailTemplate] [varchar](50) NULL,
+	[ScheduleType] [int] NOT NULL,
+	[ScheduleTime] [datetime] NULL,
+	[EmailRequestStatus] [int] NOT NULL,
+	[EntryTime] [datetime] NULL,
+	[UniqueID] [varchar](30) NULL,
+ CONSTRAINT [PK_EmailRequests] PRIMARY KEY CLUSTERED 
+(
+	[EmailRequestID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[ForgotPasswordLog]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[ForgotPasswordLog](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[Login] [varchar](100) NULL,
+	[Token] [varchar](100) NULL,
+	[IPAddress] [varchar](20) NULL,
+	[Found] [bit] NULL,
+	[URL] [varchar](100) NULL,
+	[EntyDate] [datetime] NULL,
+	[IsUsed] [bit] NULL,
+	[UpdatedOn] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [sec].[LoginHistory]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [sec].[LoginHistory](
+	[LoginHistoryID] [bigint] IDENTITY(1,1) NOT NULL,
+	[UserID] [int] NOT NULL,
+	[LoginID] [varchar](50) NOT NULL,
+	[MachineIP] [varchar](20) NOT NULL,
+	[LoginTime] [datetime] NOT NULL,
+ CONSTRAINT [PK_LoginHistory] PRIMARY KEY CLUSTERED 
+(
+	[LoginHistoryID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [sec].[Permissions]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [sec].[Permissions](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](50) NOT NULL,
+	[Description] [varchar](50) NOT NULL,
+	[CreatedBy] [int] NOT NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[Modifiedby] [int] NULL,
+	[ModifiedOn] [datetime] NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_Permissions] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [sec].[PermissionsMapping]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [sec].[PermissionsMapping](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[RoleId] [int] NOT NULL,
+	[PermissionId] [int] NOT NULL,
+ CONSTRAINT [PK_PermissionsMapping] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [sec].[Roles]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [sec].[Roles](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](50) NOT NULL,
+	[Description] [varchar](50) NOT NULL,
+	[CreatedBy] [int] NOT NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[Modifiedby] [int] NULL,
+	[ModifiedOn] [datetime] NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_Roles] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [sec].[UserRoles]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [sec].[UserRoles](
+	[UserRoleID] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [int] NOT NULL,
+	[RoleId] [int] NOT NULL,
+ CONSTRAINT [PK_UserRoles] PRIMARY KEY CLUSTERED 
+(
+	[UserRoleID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [sec].[Users]    Script Date: 9/21/2018 2:46:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [sec].[Users](
+	[UserId] [int] IDENTITY(1,1) NOT NULL,
+	[Login] [varchar](50) NOT NULL,
+	[Password] [varchar](50) NOT NULL,
+	[Name] [varchar](100) NOT NULL,
+	[Email] [varchar](100) NULL,
+	[CreatedBy] [int] NOT NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[Modifiedby] [int] NULL,
+	[ModifiedOn] [datetime] NULL,
+	[IsActive] [bit] NOT NULL,
+	[IsDisabledForLogin] [bit] NULL,
+	[ResetToken] [varchar](50) NULL,
+ CONSTRAINT [PK_Users_1] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+ALTER TABLE [dbo].[EmailRequests] ADD  DEFAULT (getutcdate()) FOR [EntryTime]
+GO
+ALTER TABLE [sec].[Permissions] ADD  DEFAULT ((0)) FOR [CreatedBy]
+GO
+ALTER TABLE [sec].[Permissions] ADD  DEFAULT (getutcdate()) FOR [CreatedOn]
+GO
+ALTER TABLE [sec].[Permissions] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [sec].[Roles] ADD  DEFAULT ((0)) FOR [CreatedBy]
+GO
+ALTER TABLE [sec].[Roles] ADD  DEFAULT (getutcdate()) FOR [CreatedOn]
+GO
+ALTER TABLE [sec].[Roles] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [sec].[Users] ADD  DEFAULT ((0)) FOR [CreatedBy]
+GO
+ALTER TABLE [sec].[Users] ADD  DEFAULT (getutcdate()) FOR [CreatedOn]
+GO
+ALTER TABLE [sec].[Users] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+
+
+
+
+
+
+
+
+
+
+GO
+
+SET IDENTITY_INSERT sec.users ON
+
+insert into sec.Users(UserId, Login, Password, Name, Email, IsActive,IsDisabledForLogin,ResetToken)
+Select 1,'Admin','123','Admin','abc@yahoo.com',1,0,''
+
+SET IDENTITY_INSERT sec.users OFF
+
+
+GO
+
+SET IDENTITY_INSERT sec.Permissions ON
+
+Insert into sec.Permissions(Id, Name, Description)
+
+Select '1','perCanLoginAsOtherUser','' UNION ALL
+Select '2','perManageSecurityUsers','' UNION ALL
+Select '3','perManageSecurityRoles','' UNION ALL
+Select '4','perManageSecurityPermissions','' UNION ALL
+Select '5','perViewLoginHistoryReport',''
+
+SET IDENTITY_INSERT sec.Permissions OFF
+
+GO
+
+SET IDENTITY_INSERT sec.Roles ON
+
+INSERT INTO sec.Roles(Id, Name, Description,CreatedBy,CreatedOn)
+Select '1','Admin','System Admin',1,GetUtCDate()
+
+SET IDENTITY_INSERT sec.Roles OFF
+
+GO
+
+
+SET IDENTITY_INSERT [sec].[PermissionsMapping] ON
+
+INSERT INTO [sec].[PermissionsMapping](Id, RoleId, PermissionId)
+Select '1','1','1' UNION ALL
+Select '2','1','2' UNION ALL
+Select '3','1','3' UNION ALL
+Select '4','1','4' UNION ALL
+Select '5','1','5' 
+
+SET IDENTITY_INSERT [sec].[PermissionsMapping] OFF
+
+GO
+
+
+Insert into [sec].[UserRoles](UserId, RoleId)
+Select '1','1' 
+
+
+
+GO
+
+ALTER TABLE sec.Users
+  ADD RegistrationNumber VARCHAR(50);
+GO
+ALTER TABLE sec.Users add SectionId int ;
+
+GO
+ALTER Procedure [sec].[ValidateUser]
+	@Login varchar(50),
+	@Password varchar(50),
+	@CurrTime datetime,
+	@MachineIP varchar(20),
+	@IgnorePassword bit,
+	@LoggerLoginID varchar(50),
+	@Email varchar(50)
+AS 
+BEGIN
+
+	--DECLARE @Login varchar(50) = ''
+	--DECLARE @Password varchar(50) = '123'
+	--DECLARE @CurrTime datetime = getdate()
+	--DECLARE @MachineIP varchar(20) = ''
+	--DECLARE @IgnorePassword bit = 0
+	--DECLARE @LoggerLoginID varchar(50) = ''
+
+	Declare @UserId int = 0	
+	Declare @isActive bit =0
+	Declare @isDisabled bit =0
+
+	if(@IgnorePassword = 0)
+	BEGIN
+		SELECT @UserId=UserId, @isActive = IsActive ,@isDisabled =Isnull(IsDisabledForLogin,0)
+		from sec.Users u where (Login = @Login OR Email = @Login) and Password = @Password 	
+	END
+	else
+	BEGIN
+		SELECT @UserId=UserId, @isActive = IsActive ,@isDisabled =Isnull(IsDisabledForLogin,0)
+		from sec.Users u where Login = @Login OR Email=@Email  	
+	END
+
+	Select UserId, Login, Password, Name, Email, CreatedBy, CreatedOn, Modifiedby, ModifiedOn, IsActive, isnull(IsDisabledForLogin,0) as IsDisabledForLogin, ResetToken, RegistrationNumber,SectionId 
+	from sec.Users where UserID = @UserId
+
+	if @UserId > 0  AND @isActive = 1 AND @isDisabled = 0
+	BEGIN
+		
+		Select distinct r.* from sec.Roles r 
+		INNER JOIN sec.UserRoles ur on r.ID = ur.RoleId and ur.UserId = @UserId
+		Where r.IsActive = 1
+
+		Select distinct p.*,pm.RoleId from sec.Permissions p 
+		INNER JOIN [sec].[PermissionsMapping] pm on p.Id = pm.PermissionId
+		INNER JOIN sec.UserRoles ur on pm.RoleId = ur.RoleId and ur.UserId = @UserId
+		Where p.IsActive = 1
+		
+	END
+
+	IF @LoggerLoginID != ''
+			SET @Login = @Login + '_By_' + @LoggerLoginID
+
+		INSERT INTO sec.LoginHistory(UserID, LoginID, MachineIP, LoginTime)
+		Select @UserId,@Login,@MachineIP,@CurrTime
+END
+
+
+
+
+GO
+CREATE TABLE [sec].[Project](
+	[ProjectId] [int] IDENTITY(1,1) NOT NULL,
+	[ProjectTitle] [varchar](50) NOT NULL,
+	[Description] [varchar](50) NOT NULL,
+	[Type] [varchar](50) NOT NULL,
+	[TotalUpVote] [int] NULL,
+	[TotalDownVote] [int] NULL,
+	[BidCount] [int] NULL,
+	[FileName] [varchar](40) NULL,
+	[UserId] [int] NULL,
+ CONSTRAINT [PK_Projects_1] PRIMARY KEY CLUSTERED 
+(
+	[ProjectId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+
+GO
+CREATE TABLE [sec].[ProjectSectionMapping](
+	[PSId] [int] IDENTITY(1,1) NOT NULL,
+	[SectionId] [int] NOT NULL,
+	[ProjectId] [int] NOT NULL,
+ CONSTRAINT [PK_projectSectionmapping-1] PRIMARY KEY CLUSTERED 
+(
+	[PSId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+
+GO
+CREATE TABLE [sec].[Request](
+	[RequestId] [int] IDENTITY(1,1) NOT NULL,
+	[ProjectId] [int] NOT NULL,
+	[SendBy] [int] NOT NULL,
+	[RequestBody] [varchar](100) NOT NULL,
+	[Status] [varchar](50) NOT NULL,
+	[Type] [varchar](50) NOT NULL,
+	[RequestCount] [int] NOT NULL,
+	[CreatedOn] [datetime] NOT NULL,
+ CONSTRAINT [PK_request_1] PRIMARY KEY CLUSTERED 
+(
+	[RequestId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [sec].[Section](
+	[SectionId] [int] IDENTITY(1,1) NOT NULL,
+	[SectionName] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Section_1] PRIMARY KEY CLUSTERED 
+(
+	[SectionId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+CREATE TABLE [sec].[UserProjectMapping](
+	[UPId] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [int] NOT NULL,
+	[ProjectId] [int] NOT NULL,
+ CONSTRAINT [PK_UserProjectMapping_1] PRIMARY KEY CLUSTERED 
+(
+	[UPId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+CREATE TABLE [dbo].[Comments](
+	[CommentId] [int] IDENTITY(1,1) NOT NULL,
+	[ProjectId] [int] NOT NULL,
+	[UserId] [int] NOT NULL,
+	[CommentText] [varchar](200) NOT NULL,
+	[ModifiedOn] [datetime] NOT NULL,
+	[CreatedOn] [datetime] NULL,
+	[isActive] [bit] NOT NULL,
+ CONSTRAINT [PK_Comments] PRIMARY KEY CLUSTERED 
+(
+	[CommentId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+CREATE TABLE [sec].[UserRequestMapping](
+	[URId] [int] IDENTITY(1,1) NOT NULL,
+	[Approver] [int] NOT NULL,
+	[RequestId] [int] NOT NULL,
+ CONSTRAINT [PK_UserRequestMapping_1] PRIMARY KEY CLUSTERED 
+(
+	[URId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+CREATE TABLE [sec].[VoteProjectMapping](
+	[VPId] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [int] NOT NULL,
+	[ProjectId] [int] NOT NULL,
+	[UpVote] [int] NOT NULL,
+	[DownVote] [int] NOT NULL,
+ CONSTRAINT [PK_VoteSectionMapping_1] PRIMARY KEY CLUSTERED 
+(
+	[VPId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+
+
+
+GO
+
+CREATE PROCEDURE [sec].[GetAllProjects]
+AS
+BEGIN     		
+		
+		select u.UserId ,u.RegistrationNumber,p.FileName,p.ProjectId,p.ProjectTitle,p.Description,p.Type,p.TotalUpVote,p.TotalDownVote,p.BidCount from sec.Project p ,sec.Users u where p.UserId = u.UserId;
+
+END
+
+
+
+
+GO
+
+CREATE PROCEDURE [sec].[GetCommentByProjectId]
+	@ProjId int
+	
+AS
+BEGIN
+     	select C.ProjectId, C.CommentId, C.CommentText, C.UserId, U.Name "UserName", IsNull(C.CreatedOn,'1990-10-10') from dbo.Comments C ,sec.Users U 
+Where C.ProjectId=@ProjId  AND C.UserId=U.UserId AND C.isActive=1;	
+		
+END
+
+Go
+
+/****** Object:  UserDefinedTableType [sec].[SectionList]    Script Date: 10/10/2018 2:59:28 PM ******/
+CREATE TYPE [sec].[SectionList] AS TABLE(
+	[ID] [int] NULL
+)
+GO
+
+GO
+/****** Object:  UserDefinedTableType [sec].[MemberList]    Script Date: 10/12/2018 2:59:28 PM ******/
+CREATE TYPE [sec].[MembersList] AS TABLE(
+	[ID] [varchar](100) NULL
+)
+GO
+
+
+
+
+
+
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+Create PROCEDURE [sec].[InitiateIdea]
+        @UserId int,
+		@ProjectId int,
+	   @ProjectTitle varchar(50)
+	  ,@Description varchar(50)
+       ,@PType varchar(50)
+        ,@FileName varchar(100)
+	   --Here MemberList is u
+AS
+BEGIN
+	 Declare @PId int = 0;
+	 Declare @RId int = 0;
+	if (@ProjectId > 0)
+	BEGIN
+
+		Update sec.Project
+			SET 
+			ProjectTitle = @ProjectTitle, 
+			Description = @Description, 
+			Type=@PType
+			
+		WHERE ProjectId = @ProjectId
+
+	END
+	ELSE
+	BEGIN
+		 
+
+		INSERT INTO sec.Project(ProjectTitle , Description ,Type,FileName,UserId)
+		VALUES(@ProjectTitle,@Description,@PType,@FileName,@UserId)
+		
+		Select  @ProjectId = SCOPE_IDENTITY();
+		insert into sec.UserProjectMapping values (@UserId,@ProjectId);
+
+		
+
+	      
+    END
+	Select @ProjectId;
+END
+
+GO
+update  sec.Users set SectionId= 8 where UserId =1;
+
+
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [sec].[SaveRequest]
+        @RequestId int 
+        ,@UserId int
+		,@ProjectId int
+	    ,@RequestBody varchar(100)
+	   ,@Status varchar(50)
+	   ,@RType varchar(50)
+	   ,@rList MembersList READONLY 
+	   ,@sList SectionList READONLY
+	   ,@CreatedOn datetime
+AS
+BEGIN  
+    Declare @RId int = 0;
+	BEGIN
+		  insert into sec.Request (ProjectId,SendBy,RequestBody,Status,Type,CreatedON,RequestCount)
+		  values (@ProjectId,@UserId,@RequestBody,@Status,@RType,@CreatedOn,1);
+
+		  Select  @RequestId = SCOPE_IDENTITY();
+		
+		    
+         insert into ProjectSectionMapping (ProjectId,SectionId) 
+		 select @ProjectId , ID from @sList 
+
+		 insert into UserRequestMapping (RequestId,Approver)
+	     select @RequestId ,UserId from sec.Users 
+		 where SectionId IN ( select ID from @sList)
+
+         insert into UserRequestMapping (RequestId,Approver)
+	     select @RequestId ,UserId from sec.Users 
+		 where  RegistrationNumber  IN ( select ID from @rList)
+   END
+     Select  @RequestId;
+
+END
+
+---==========================================================
+-- Set default value of upVote, downVote,bid  17 Oct 2018  --
+--=============================================================
+
+GO
+ALTER TABLE [sec].[Project] ADD  CONSTRAINT [DF_Project_TotalUpVote]  DEFAULT ((0)) FOR [TotalUpVote]
+GO
+ALTER TABLE [sec].[Project] ADD  CONSTRAINT [DF_Project_TotalDownVote]  DEFAULT ((0)) FOR [TotalDownVote]
+GO
+ALTER TABLE [sec].[Project] ADD  CONSTRAINT [DF_Project_BidCount]  DEFAULT ((0)) FOR [BidCount]
+
+--===================================================
+--Vote Project procedure altered
+--==================================================
+
+GO
+/****** Object:  StoredProcedure [dbo].[ProjectVote]    Script Date: 10/19/2018 8:13:57 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[ProjectVote]
+	-- Add the parameters for the stored procedure here
+	@ProjectId int, 
+	@UserId int,
+	@Upvote bit,
+	@Downvote bit
+
+AS
+BEGIN
+	--DECLARE @ProjectId int = 3
+	--DECLARE @UserId int = 2
+	--DECLARE @Upvote bit = 1
+	--DECLARE @Downvote bit =0
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	--SET NOCOUNT ON;
+	DECLARE @PVM int = 0
+	DECLARE @ProjectId1 int = 0
+	DECLARE @UserId1 int = 0
+	DECLARE @Upvote1 bit=0
+	DECLARE @Downvote1 bit = 0
+	DECLARE @totalCount int = 0
+	DECLARE @result int = 6
+
+	 Select @totalCount = count(*) 
+		from sec.VoteProjectMapping vpm 
+		where (vpm.ProjectId = @ProjectId
+		AND
+		vpm.UserId = @UserId)
+
+		IF @totalCount > 0
+		BEGIN
+		Select
+		@PVM = VPId,
+		 @ProjectId1 = ProjectId,
+		@UserId1 = UserId,
+		@Upvote1 = UpVote,
+		@DownVote1 = DownVote
+		from sec.VoteProjectMapping vpm 
+		where (vpm.ProjectId = @ProjectId
+		AND
+		vpm.UserId = @UserId)
+		-- in case user has upvoted the project before and now he has upvoted again
+		IF @Upvote1 = 1 and @Upvote = 1
+		BEGIN
+		DELETE FROM [sec].[VoteProjectMapping] 
+      WHERE (VPId = @PVM
+	  AND
+		UserId = @UserId)
+		--UPDATE sec.VoteProjectMapping 
+		--SET UpVote = 0
+		--WHERE VPId = @PVM
+		--Decrement Total UpVotes in sec.Project table
+		UPDATE sec.Project 
+		SET TotalUpVote = (SELECT TotalUpVote from sec.Project p where ProjectId = @ProjectId) - 1
+		WHERE ProjectId = @ProjectId
+		 
+		SET @result = 0
+		--select @result 
+		END
+		------------------------------------------------------
+		-- user unvoted the project before and now he has voted again
+		--ELSE IF @Upvote1 = 0 and @Downvote1 = 0
+		--BEGIN
+		--IF (@Upvote = 1)
+		--BEGIN
+		--UPDATE sec.VoteProjectMapping 
+		--SET UpVote = 1
+		--WHERE VPId = @PVM
+
+		----increment Total UpVotes in sec.Project table
+		----@totalVotes = SELECT TotalUpVote from sec.Project p 
+		--UPDATE sec.Project 
+		--SET TotalUpVote = (SELECT TotalUpVote from sec.Project p where ProjectId = @ProjectId) +1
+		--WHERE ProjectId = @ProjectId
+		-- END
+		--else if (@Downvote = 1)
+		--BEGIN
+		--UPDATE sec.VoteProjectMapping 
+		--SET DownVote = 1
+		--WHERE VPId = @PVM
+		----increment Total DownVotes in sec.Project table
+		--UPDATE sec.Project 
+		--SET TotalUpVote = (SELECT TotalUpVote from sec.Project p where ProjectId = @ProjectId) + 1
+		--WHERE ProjectId = @ProjectId
+		-- END
+		--SET @result = 1
+		----select @result 
+		--END
+		---------------------------------------------
+			-- in case user has downvoted the project before and now he has upvoted it
+		else if(@Upvote1 = 0 and @Downvote1 = 1 and @Upvote =  1)
+		BEGIN
+		UPDATE sec.VoteProjectMapping 
+		SET UpVote = 1, DownVote = 0
+		WHERE VPId = @PVM
+		--Decrement Total DownVotes and increamnet upvote in sec.Project table
+		UPDATE sec.Project 
+		SET 
+		TotalUpVote = (SELECT TotalUpVote from sec.Project p where ProjectId = @ProjectId) + 1,
+		 TotalDownVote = (SELECT TotalDownVote from sec.Project p where ProjectId = @ProjectId) - 1
+		WHERE ProjectId = @ProjectId;
+
+		SET @result = -1
+		--select cast(@result as int)
+		END
+		------------------------------------------------------
+		-- in case user has downvoted the project before and now he has downvoted again
+		else if(@Downvote1 = 1 and @Downvote = 1)
+		BEGIN
+		DELETE FROM [sec].[VoteProjectMapping]
+      WHERE (VPId = @PVM
+	  AND
+		UserId = @UserId)
+		--UPDATE sec.VoteProjectMapping 
+		--SET DownVote = 0
+		--WHERE VPId = @PVM
+
+		--Decrement Total DownVotes in sec.Project table
+		UPDATE sec.Project 
+		SET TotalDownVote = (SELECT TotalDownVote from sec.Project p where ProjectId = @ProjectId) - 1
+		WHERE ProjectId = @ProjectId
+
+		SET @result = 0
+		--select cast(@result as int)
+		END
+
+		---------------------------------------------------------
+
+		-- in case user has upvoted the project before and now he has downvoted it
+		else if(@Upvote1 = 1 and @Downvote1 = 0 and @Downvote =  1)
+		BEGIN
+		UPDATE sec.VoteProjectMapping 
+		SET UpVote = 0, DownVote = 1
+		WHERE VPId = @PVM
+
+		--Decrement Total UpVotes and increamnet Downvote in sec.Project table
+		UPDATE sec.Project 
+		SET 
+		TotalDownVote = (SELECT TotalDownVote from sec.Project p where ProjectId = @ProjectId) + 1,
+		 TotalUpVote = (SELECT TotalUpVote from sec.Project p where ProjectId = @ProjectId) - 1
+		WHERE ProjectId = @ProjectId
+
+		SET @result = -1
+		--select cast(@result as int)
+		END
+		------------------------------------------------------- 
+		END
+		ELSE IF(@totalCount = 0)
+		BEGIN
+		IF(@Upvote = 1 AND @Downvote = 0)
+		BEGIN
+		--increamnet Upvote in sec.Project table
+		UPDATE sec.Project 
+		SET 
+		 TotalUpVote = (SELECT TotalUpVote from sec.Project p where ProjectId = @ProjectId) + 1
+		WHERE ProjectId = @ProjectId
+		 
+		 insert into sec.VoteProjectMapping
+		 (ProjectId, UserId, UpVote, DownVote)
+		 Values (@ProjectId, @UserId, @Upvote, @Downvote)
+
+		 SET @result = 1
+		--select cast(@result as int)
+		END
+		Else IF(@Downvote =1)
+		BEGIN 
+		--increamnet Downvote in sec.Project table
+		UPDATE sec.Project 
+		SET 
+		 TotalDownVote = (SELECT TotalDownVote from sec.Project p where ProjectId = @ProjectId) + 1
+		WHERE ProjectId = @ProjectId
+		 
+		 insert into sec.VoteProjectMapping
+		 (ProjectId, UserId, UpVote, DownVote)
+		 Values (@ProjectId, @UserId, @Upvote, @Downvote)
+	
+		SET @result = 1
+		--select cast(@result as int)
+		END
+		END
+		SELECT @result
+END
+
+
+
+--====================================================
+--   Creating sec.SaveComments Stored Procedure     --
+--====================================================
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [sec].[SaveComments]
+	@CommentId int,
+	@ProjectId int,
+	@UserId int,
+	@CommentText varchar(200),
+	@CreatedOn datetime,
+	@ModifiedOn datetime
+AS
+BEGIN
+	
+	if (@CommentId > 0)
+	BEGIN
+		Update dbo.Comments
+			SET 
+			CommentText=@CommentText
+			WHERE CommentId = @CommentId
+
+	END
+	ELSE
+	BEGIN
+		
+		INSERT INTO dbo.Comments(ProjectId ,UserId,CommentText,CreatedOn,ModifiedOn,IsActive)
+		VALUES( @ProjectId ,@UserId ,@CommentText,@CreatedOn, @ModifiedOn,1)
+		
+		Select @CommentId = SCOPE_IDENTITY()
+	END
+
+	Select @CommentId
+END
+--====================================================
+--   End of sec.SaveComments Stored Procedure     --
+--====================================================
+
+
+--===============================================================
+--   Alter sec.SearchUserForAutoComplete Stored Procedure     --
+--===============================================================
+
+GO
+ALTER Procedure [sec].[SearchUserForAutoComplete]
+@key varchar(20)
+As 
+Begin
+	
+	Select UserId, Login, Name
+	from sec.Users
+	where Login like '%' +@key+ '%' 
+	OR Name like '%' +@key+ '%' 
+	And IsActive = 1
+End
+GO
+
+Go
+ALTER Table sec.Users add ProfilePicName varchar(50)
+
+Go
+
+
+--===================================================================
+--    Bid Project Store Procedure
+--====================================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+
+-- =============================================
+CREATE PROCEDURE ProjectBid 
+-- Add the parameters for the stored procedure here
+	@ProjectId int, 
+	@UserId int,
+	@CreatedOn DateTime
+	-- Add the parameters for the stored procedure here
+	
+AS
+BEGIN
+		DECLARE @Count int = 0
+		DECLARE @result int = 0
+    -- Insert statements for procedure here
+	SELECT @Count = count(RequestId) 
+	from sec.Request 
+	where  ProjectId = @ProjectId AND SendBy = @UserId
+	IF @Count > 0
+	BEGIN
+	DELETE FROM sec.Request 
+	where  ProjectId = @ProjectId AND SendBy = @UserId
+	UPDATE sec.Project 
+		SET BidCount = (SELECT BidCount from sec.Project p where ProjectId = @ProjectId) - 1
+		WHERE ProjectId = @ProjectId
+
+		SET @result = -1
+	END
+	ELSE IF @Count = 0
+	BEGIN
+	insert into sec.Request
+		 (ProjectId, SendBy, Status, Type, CreatedOn, RequestBody, RequestCount )
+		 Values (@ProjectId, @UserId, 'pending', 'Bid', @CreatedOn,'', 0  )
+	UPDATE sec.Project 
+		SET BidCount = (SELECT BidCount from sec.Project p where ProjectId = @ProjectId) + 1
+		WHERE ProjectId = @ProjectId
+
+		SET @result = 1
+	END
+	select @result
+END
+GO
+--=============================================================================================
+-- End of Bid Project Store Procedure
+--=============================================================================================
+
+-- =============================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [sec].[GetCommentByProjectId]
+	@ProjId int,
+	@CommentCount int
+	
+AS
+BEGIN
+     	select Top (@CommentCount)  ROW_NUMBER() over (partition by ProjectId order by C.CreatedOn desc),C.ProjectId, C.CommentId, C.CommentText, C.UserId, U.Name "UserName", C.CreatedOn "CreatedOn" from dbo.Comments C ,sec.Users U 
+Where C.ProjectId=@ProjId  AND C.UserId=U.UserId AND C.isActive=1;	
+		
+END
+
+--=============================================================================================
+-- End of Alter Procedure GetCommentByProjectId
+--=============================================================================================
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [sec].[GetCommentByProjectId]
+	@ProjId int,
+	@CommentCount int
+	
+AS
+BEGIN
+     	select Top (@CommentCount)  ROW_NUMBER() over (partition by ProjectId order by C.CreatedOn desc),C.ProjectId, C.CommentId, C.CommentText, C.UserId, U.Name "UserName", U.ProfilePicName "ProfilePicName",C.CreatedOn "CreatedOn" from dbo.Comments C ,sec.Users U 
+Where C.ProjectId=@ProjId  AND C.UserId=U.UserId AND C.isActive=1;	
+		
+END
+
+--==============================================================================================
+
+
+GO
+/****** Object:  StoredProcedure [sec].[ValidateUser]    Script Date: 21/11/2018 5:41:01 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER Procedure [sec].[ValidateUser]
+	@Login varchar(50),
+	@Password varchar(50),
+	@CurrTime datetime,
+	@MachineIP varchar(20),
+	@IgnorePassword bit,
+	@LoggerLoginID varchar(50),
+	@Email varchar(50)
+AS 
+BEGIN
+
+	--DECLARE @Login varchar(50) = ''
+	--DECLARE @Password varchar(50) = '123'
+	--DECLARE @CurrTime datetime = getdate()
+	--DECLARE @MachineIP varchar(20) = ''
+	--DECLARE @IgnorePassword bit = 0
+	--DECLARE @LoggerLoginID varchar(50) = ''
+
+	Declare @UserId int = 0	
+	Declare @isActive bit =0
+	Declare @isDisabled bit =0
+
+	if(@IgnorePassword = 0)
+	BEGIN
+		SELECT @UserId=UserId, @isActive = IsActive ,@isDisabled =Isnull(IsDisabledForLogin,0)
+		from sec.Users u where (Login = @Login OR Email = @Login) and Password = @Password 	
+	END
+	else
+	BEGIN
+		SELECT @UserId=UserId, @isActive = IsActive ,@isDisabled =Isnull(IsDisabledForLogin,0)
+		from sec.Users u where Login = @Login OR Email=@Email  	
+	END
+
+	Select UserId, Login, Password, Name, Email, CreatedBy, CreatedOn, Modifiedby, ModifiedOn, IsActive, isnull(IsDisabledForLogin,0) as IsDisabledForLogin, ResetToken, RegistrationNumber,SectionId,ProfilePicName 
+	from sec.Users where UserID = @UserId
+
+	if @UserId > 0  AND @isActive = 1 AND @isDisabled = 0
+	BEGIN
+		
+		Select distinct r.* from sec.Roles r 
+		INNER JOIN sec.UserRoles ur on r.ID = ur.RoleId and ur.UserId = @UserId
+		Where r.IsActive = 1
+
+		Select distinct p.*,pm.RoleId from sec.Permissions p 
+		INNER JOIN [sec].[PermissionsMapping] pm on p.Id = pm.PermissionId
+		INNER JOIN sec.UserRoles ur on pm.RoleId = ur.RoleId and ur.UserId = @UserId
+		Where p.IsActive = 1
+		
+	END
+
+	IF @LoggerLoginID != ''
+			SET @Login = @Login + '_By_' + @LoggerLoginID
+
+		INSERT INTO sec.LoginHistory(UserID, LoginID, MachineIP, LoginTime)
+		Select @UserId,@Login,@MachineIP,@CurrTime
+END
+GO
+
+--=============================================================================================
+--=============================================================================================
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [sec].[GetCommentByProjectId]
+	@ProjId int,
+	@CommentCount int
+	
+AS
+BEGIN
+     	select Top (@CommentCount)  ROW_NUMBER() over (partition by ProjectId order by C.CreatedOn desc),C.ProjectId, C.CommentId, C.CommentText, C.UserId, U.Name "UserName", C.CreatedOn "CreatedOn", U.ProfilePicName from dbo.Comments C ,sec.Users U 
+Where C.ProjectId=@ProjId  AND C.UserId=U.UserId AND C.isActive=1;	
+		
+END
+
+--=============================================================================================
+-- End of Alter Procedure GetCommentByProjectId
+--=============================================================================================
+
+
+Go
+CREATE Procedure [sec].[updateUserProfilePic]
+
+@ProfilePicName varchar(50),
+@UserId int
+
+AS
+BEGIN
+			Update sec.Users set ProfilePicName = @ProfilePicName 
+			Where UserId=@UserId and IsActive = 1
+			SELECT 1;
+		END
+
+
+GO
+
+
+ALTER Procedure [sec].[SearchUserForAutoComplete]
+@key varchar(20)
+As 
+Begin
+	
+	Select UserId, Login, Name,RegistrationNumber
+	from sec.Users
+	where Login like '%' +@key+ '%' 
+	OR Name like '%' +@key+ '%'
+	OR RegistrationNumber like '%'+ @key + '%'
+	And IsActive = 1
+End
+
+
+--===============================================================
+--   Alter table sec.project     --
+--===============================================================
+
+ GO
+ALTER TABLE [sec].[Project] ADD  CreatedOn datetime 
+GO
+ALTER TABLE [sec].[Project] ADD  ModifiedOn datetime 
+GO
+ALTER TABLE [sec].[Project] ADD  IsActive bit
+
+
+--===============================================================
+--   end of sec.project     --
+--===============================================================
+  
+
+--===============================================================
+--   sec.InitiateIdea procedure is altered   --
+--===============================================================
+
+/****** Object:  StoredProcedure [sec].[InitiateIdea]    Script Date: 11/13/2018 3:03:34 PM ******/
+GO
+-- execute sec.InitiateIdea 1,0,"SFP","student faculty portal","dev","serf",null,null,1
+--===============================================================
+-- alter  sec.InitiateIdea procedure is ended   --
+--===============================================================
+
+
+
+--===============================================================
+--          updatUserProfile updated  --
+--=======================================================
+
+
+CREATE Procedure [sec].[UpdateUserProfile]
+
+@Name varchar(50),
+@UserId int,
+@Email varchar(50),
+@ModifiedOn datetime
+
+AS
+BEGIN
+	
+	--IF @IsChangePassword = 1 -- Change Password
+	BEGIN
+		IF  (SELECT count(*) From sec.Users
+			Where UserId =@UserId) = 1
+		BEGIN
+			Update sec.Users set ModifiedOn = @ModifiedOn, Name=@Name , Email=@Email
+			Where UserId=@UserId and IsActive = 1
+			Select 1;
+		END
+		ELSE
+		Select 0
+	END
+END
+
+--===============================================================
+--                 InitiateIdea SP updated                     --
+--===============================================================
+GO
+
+ALTER PROCEDURE [sec].[InitiateIdea]
+        @UserId int,
+		@ProjectId int,
+	   @ProjectTitle varchar(50)
+	  ,@Description varchar(50)
+       ,@PType varchar(50)
+        ,@FileName varchar(100)
+		,@CreatedOn datetime
+		,@ModifiedOn datetime
+		,@IsActive bit
+	   --Here MemberList is u
+AS
+BEGIN
+	 Declare @PId int = 0;
+	 Declare @RId int = 0;
+	if (@ProjectId > 0)
+	BEGIN
+
+		Update sec.Project
+			SET 
+			ProjectTitle = @ProjectTitle, 
+			Description = @Description, 
+			Type=@PType
+			
+		WHERE ProjectId = @ProjectId
+
+	END
+	ELSE
+	BEGIN
+		INSERT INTO sec.Project(ProjectTitle , Description ,Type,FileName,UserId,CreatedOn,ModifiedOn,IsActive)
+		VALUES(@ProjectTitle,@Description,@PType,@FileName,@UserId,@CreatedOn,@ModifiedOn,@IsActive)
+		
+		Select  @ProjectId = SCOPE_IDENTITY();
+		insert into sec.UserProjectMapping values (@UserId,@ProjectId);
+  END
+	Select @ProjectId;
+END
+
+
+
+
+
+--===============================================================
+--                 sec.ProjectLog Table added                  --
+--===============================================================
+Go
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [sec].[ProjectLog](
+	[ProjectLogId] [int] IDENTITY(1,1) NOT NULL,
+	[ProjectId] [int] NOT NULL,
+	[LogText] [varchar](100) NOT NULL,
+	[LogTime] [datetime] NOT NULL,
+ CONSTRAINT [PK_sec.ProjectLog] PRIMARY KEY CLUSTERED 
+(
+	[ProjectLogId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+--===================================================
+--     		Alter project table              --
+--===================================================
+
+GO
+
+ ----------- new tables  and store procedure added by izma --------------------
+
+--===============================================================
+--   Alter table sec.project     --
+--===============================================================
+
+ALTER TABLE [sec].[Project] ADD ProjectState bit
+
+------------------------------------------------------------
+GO
+
+ALTER PROCEDURE [sec].[InitiateIdea]
+        @UserId int,
+		@ProjectId int,
+	    @ProjectTitle varchar(50)
+   	   ,@Description varchar(50)
+       ,@PType varchar(50)
+        ,@FileName varchar(100)
+		,@CreatedOn datetime
+		,@ModifiedOn datetime
+		,@IsActive bit
+		,@ProjectState bit
+	   --Here MemberList is u
+AS
+BEGIN
+	 Declare @PId int = 0;
+	 Declare @RId int = 0;
+	if (@ProjectId > 0)
+	BEGIN
+
+		Update sec.Project
+			SET 
+			ProjectTitle = @ProjectTitle, 
+			Description = @Description, 
+			Type=@PType
+			
+		WHERE ProjectId = @ProjectId
+
+	END
+	ELSE
+	BEGIN
+		INSERT INTO sec.Project(ProjectTitle , Description ,Type,FileName,UserId,CreatedOn,ModifiedOn,IsActive,ProjectState)
+		VALUES(@ProjectTitle,@Description,@PType,@FileName,@UserId,@CreatedOn,@ModifiedOn,@IsActive,@ProjectState)
+		
+		Select  @ProjectId = SCOPE_IDENTITY();
+		insert into sec.UserProjectMapping values (@UserId,@ProjectId);
+  END
+	Select @ProjectId;
+END
+
+
+-------------------------------------------------------------------
+
+GO
+/****** Object:  StoredProcedure [sec].[SaveRequest]    Script Date: 12/3/2018 9:32:52 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [sec].[SaveRequest]
+        @RequestId int 
+        ,@UserId int
+		,@ProjectId int
+	    ,@RequestBody varchar(100)
+	   ,@Status varchar(50)
+	   ,@RType varchar(50)
+	   ,@rList MembersList READONLY 
+	   ,@CreatedOn datetime
+	 
+AS
+BEGIN  
+  
+	BEGIN
+		  insert into sec.Request (ProjectId,SendBy,RequestBody,Status,Type,CreatedON,RequestCount)
+		  values (@ProjectId,@UserId,@RequestBody,@Status,@RType,@CreatedOn,1);
+
+		  select  @RequestId = SCOPE_IDENTITY();
+
+		 insert into UserRequestMapping (RequestId,Approver)
+	     select @RequestId ,UserId from sec.Users 
+		 where  RegistrationNumber  IN ( select ID from @rList)
+   END
+     Select  @RequestId;
+
+END
+
+---==========================================================
+GO
+/****** Object:  StoredProcedure [sec].[SaveNotification]    Script Date: 12/4/2018 11:20:47 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [sec].[SaveNotification]
+       @NotificationId int
+	   ,@NotificationBody varchar(50)
+	    ,@NotficationTitle varchar(50)
+		,@UserId int
+		,@CreatedOn datetime
+		 ,@ProjectId int
+	   ,@sList SectionList READONLY
+AS
+BEGIN  
+    Declare @NotifId int = 0;
+	BEGIN
+		 
+
+		   insert into sec.Notification (NotificationBody,Title,CreatedOn) values
+		   (@NotificationBody,@NotficationTitle,@CreatedOn);
+
+		      Select @NotificationId = SCOPE_IDENTITY();
+		
+		   insert into ProjectSectionMapping (ProjectId,SectionId) 
+		 select @ProjectId , ID from @sList 
+		  
+		   
+		  insert into NotificationSectionMapping (NotificationId,SectionId) 
+		  select @NotificationId, ID from @sList
+
+		 insert into UserNotificationMapping(NotificationId,UserId)
+	     select @NotificationId,UserId from sec.Users 
+		 where SectionId IN ( select ID from @sList)
+
+         
+   END
+     Select  @NotificationId;
+
+END
+
+--=============================================================
+
+
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [sec].[Notification](
+       [NotificationId] [int] IDENTITY(1,1) NOT NULL
+      ,[NotificationBody] [varchar](100) NOT NULL
+      ,[Title] [varchar](100) NOT NULL
+      ,[CreatedOn] [datetime] NOT NULL,
+	
+ CONSTRAINT [PK_sec.NotificationId] PRIMARY KEY CLUSTERED 
+(
+	[NotificationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+Go
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [sec].[NotificationSectionMapping](
+       [NotificationId] [int] NOT NULL
+      ,[SectionId] [int]  NOT NULL
+      ,[NotificationSectionMapping]  [int] IDENTITY(1,1) NOT NULL
+      
+	
+ CONSTRAINT [PK_sec.NotificationSectionId] PRIMARY KEY CLUSTERED 
+(
+	[NotificationSectionMapping] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+Go
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [sec].[UserNotificationMapping](
+
+       [NotificationId] [int] NOT NULL
+      ,[UserId] [int]  NOT NULL
+      ,[UserNotificationId]  [int] IDENTITY(1,1) NOT NULL
+      
+	
+ CONSTRAINT [PK_sec.UserNotificationId] PRIMARY KEY CLUSTERED 
+(
+	[UserNotificationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+--=========================================================--
+-- ---------------------------------------------------------
+GO
+ALTER TABLE sec.Request ALTER COLUMN Status int NOT NULL;
+
+GO
+
+--===============================================================
+--   Alter table [sec].[Project]   --
+--===============================================================
+ 
+ALTER TABLE [sec].[Project]
+  ALTER COLUMN Type int not NULL;
+
+  GO
+  
+--===============================================================
+--   Alter table [sec].[Project]   --
+--===============================================================
+
+ALTER TABLE [sec].[Project]
+  ALTER COLUMN ProjectState int not NULL;
+
+--==========================================================--
+--	sec.GetProjectDetailsById Stored Procedure 	    --
+--      Parameters: ProjectId				    --
+--	Return: Project, Members in project		    --
+--==========================================================--
+
+/****** Object:  StoredProcedure [sec].[GetProjectDetailsById]    Script Date: 07/12/2018 3:44:46 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [sec].[GetProjectDetailsById]
+	@ProjectId int
+AS 
+BEGIN
+	--DECLARE @ProjectId int = 1
+	DECLARE @InitiatedBy int = (select p.UserId from sec.Project p where p.ProjectId=@ProjectId) 
+	
+	SELECT * FROM sec.Users WHERE UserId IN(
+	SELECT SendBy "uid" FROM sec.UserRequestMapping m,sec.Request r where r.Status=1 AND r.RequestId=m.RequestId AND r.ProjectId=@ProjectId AND r.SendBy<>@InitiatedBy 
+	Union 
+	SELECT Approver "uid" FROM sec.UserRequestMapping m,sec.Request r where r.Status=1 AND r.RequestId=m.RequestId AND r.ProjectId=@ProjectId AND m.Approver<>@InitiatedBy)
+	SELECT * FROM sec.Project WHERE ProjectId=@ProjectId;
+	
+END
+--===========================================================--
+--   End of Procedure sec.GetProjectDetailsById
+--===========================================================--
+
+--===============================================================
+--       sec.GetAllFinalProjects Store Procedure added        --
+--===============================================================
+GO
+CREATE PROCEDURE [sec].[GetAllFinalProjects]
+	
+AS
+BEGIN
+		select u.UserId ,u.RegistrationNumber,p.FileName,p.ProjectId,p.ProjectTitle,p.Description,p.Type,p.TotalUpVote,p.TotalDownVote,p.BidCount from sec.Project p ,sec.Users u where p.UserId=u.UserId and p.ProjectState=3;
+END
+--===============================================================
+--    End of Store Procedure sec.GetAllFinalProjects        --
+--===============================================================
+
+
+----------- new store procedure added by izma on 12/7/2018--------------------
+ --===============================================================
+ 
+ 
+ 
+ --===============================================================
+--   create table [sec].[CheckIdeaExist]    --
+--===============================================================
+GO
+
+create PROCEDURE [sec].[CheckIdeaExist]
+        @UserId int
+AS
+BEGIN
+	Declare @ProjectId int = 0	
+	
+       BEGIN
+		SELECT @ProjectId = ProjectId
+		from sec.Project  where UserId = @UserId 	
+	END  
+      select @ProjectId;
+	     
+END
+
+GO
+--===================================================================== --
+--           getAllFinalproject procedure updated
+--======================================================================---
+
+ALTER PROCEDURE [sec].[GetAllFinalProjects]
+	
+AS
+BEGIN
+		select u.UserId ,u.RegistrationNumber,p.FileName,p.ProjectId,p.ProjectTitle,p.Description,p.Type,p.TotalUpVote,p.TotalDownVote,p.BidCount,p.ProjectState from sec.Project p ,sec.Users u where p.UserId=u.UserId and p.ProjectState=3;
+END
+  
+--===============================================================
+--   Alter procedure [sec].[InitiateIdea]   --
+--===============================================================
+
+GO
+ALTER PROCEDURE [sec].[InitiateIdea]
+	@UserId int,
+	@ProjectId int,
+	@ProjectTitle varchar(50)
+       ,@Description varchar(50)
+       ,@PType int
+       ,@FileName varchar(100)
+       ,@CreatedOn datetime
+       ,@ModifiedOn datetime
+       ,@IsActive bit
+       ,@ProjectState int
+	   --Here MemberList is u
+AS
+BEGIN
+	 Declare @PId int = 0;
+	 Declare @RId int = 0;
+	if (@ProjectId > 0)
+	BEGIN
+
+		Update sec.Project
+			SET 
+			ProjectTitle = @ProjectTitle, 
+			Description = @Description, 
+			Type=@PType
+			
+		WHERE ProjectId = @ProjectId
+
+	END
+	ELSE
+	BEGIN
+		INSERT INTO sec.Project(ProjectTitle , Description ,Type,FileName,UserId,CreatedOn,ModifiedOn,IsActive,ProjectState)
+		VALUES(@ProjectTitle,@Description,@PType,@FileName,@UserId,@CreatedOn,@ModifiedOn,@IsActive,@ProjectState)
+		
+		Select  @ProjectId = SCOPE_IDENTITY();
+		insert into sec.UserProjectMapping values (@UserId,@ProjectId);
+  END
+	Select @ProjectId;
+END
+
+--==================================================================
+--    		   ProjectType Table is added                     --                                                                 
+--==================================================================
+GO
+/****** Object:  Table [sec].[ProjectType]    Script Date: 14/12/2018 3:16:12 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [sec].[ProjectType](
+	[ProjTypeId] [int] IDENTITY(1,1) NOT NULL,
+	[Type] [int] NOT NULL,
+	[TypeName] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_ProjectType] PRIMARY KEY CLUSTERED 
+(
+	[ProjTypeId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+--================================================================
+-- 		Alter [sec].[GetAllProjects]  			--
+--================================================================ 
+/****** Object:  StoredProcedure [sec].[GetAllProjects]    Script Date: 13/12/2018 11:50:53 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [sec].[GetAllProjects]
+AS
+BEGIN     		
+	select u.UserId, u.Name "InitiatedBy" ,u.RegistrationNumber,p.FileName,p.ProjectId,p.ProjectTitle,p.Description,p.TotalUpVote,
+	p.TotalDownVote,p.Type,projType.TypeName,p.BidCount, 
+	p.CreatedOn,p.ModifiedOn,p.IsActive,p.ProjectState from sec.Project p ,sec.Users u,sec.ProjectType projType where p.UserId = u.UserId AND p.Type=projType.Type;
+END
+
+--================================================================
+-- 		  [sec].[GetProjectsByUserID] 		        --
+--================================================================ 
+GO
+/****** Object:  StoredProcedure [sec].[GetProjectsByUserID]    Script Date: 13/12/2018 12:40:44 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [sec].[GetProjectsByUserID] 
+	@UserId int
+As 
+BEGIN
+	select u.UserId, u.Name "InitiatedBy" ,u.RegistrationNumber,p.FileName,p.ProjectId,p.ProjectTitle,p.Description,p.Type,projType.TypeName,p.TotalUpVote,p.TotalDownVote,
+	p.BidCount, p.CreatedOn,p.ModifiedOn,p.IsActive,p.ProjectState 
+	from sec.Project p ,sec.Users u, sec.ProjectType projType where p.UserId = u.UserId AND p.UserId=@UserId AND p.Type=projType.Type;
+END
+
+
+--===========================================================--
+--   ALTER sec.GetProjectDetailsById
+--===========================================================--
+
+GO
+/****** Object:  StoredProcedure [sec].[GetProjectDetailsById]    Script Date: 14/12/2018 3:46:59 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [sec].[GetProjectDetailsById]
+	@ProjectId int
+AS 
+BEGIN
+	--DECLARE @ProjectId int = 1
+	DECLARE @InitiatedBy int = (select p.UserId from sec.Project p where p.ProjectId=@ProjectId) 
+	
+	SELECT * FROM sec.Users WHERE UserId IN(
+	SELECT SendBy "uid" FROM sec.UserRequestMapping m,sec.Request r where r.Status=1 AND r.RequestId=m.RequestId AND r.ProjectId=@ProjectId AND r.SendBy<>@InitiatedBy 
+	Union 
+	SELECT Approver "uid" FROM sec.UserRequestMapping m,sec.Request r where r.Status=1 AND r.RequestId=m.RequestId AND r.ProjectId=@ProjectId AND m.Approver<>@InitiatedBy)
+	
+			select u.UserId, u.Name "InitiatedBy" ,u.RegistrationNumber,p.FileName,p.ProjectId,p.ProjectTitle,p.Description,p.TotalUpVote,p.TotalDownVote,p.Type,projType.TypeName,p.BidCount, 
+		p.CreatedOn,p.ModifiedOn,p.IsActive,p.ProjectState from sec.Project p ,sec.Users u,sec.ProjectType projType where p.ProjectId=@ProjectId AND p.UserId = u.UserId AND p.Type=projType.Type;
+END
+--===========================================================--
+--   End of Procedure sec.GetProjectDetailsById
+--===========================================================--
+
+--===========================================================--
+--   		Procedure sec.getUserRequests		     --
+--===========================================================--
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE sec.getUserRequests
+	@UserId int
+AS
+BEGIN
+select req.RequestId,req.ProjectId,req.SendBy,req.RequestBody,req.Status,req.RequestCount,req.CreatedOn,u.Name "SendByName" from sec.Request req,sec.UserRequestMapping mapping,sec.Users u Where req.RequestId=mapping.RequestId AND mapping.Approver=3 AND req.SendBy=u.UserId AND Status=1
+END
+
+--===========================================================--
+--   End of Procedure sec.getUserRequests
+--===========================================================--

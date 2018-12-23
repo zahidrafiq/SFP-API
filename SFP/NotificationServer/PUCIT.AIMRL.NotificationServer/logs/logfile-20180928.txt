@@ -1,0 +1,8 @@
+[Header]\r\n2018-09-28 18:59:34,558 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-09-28 19:31:00,077 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-09-28 19:38:06,755 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-09-28 20:13:44,308 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-09-28 21:04:58,497 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-09-28 21:09:34,701 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-09-28 21:45:31,989 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-09-28 22:27:51,493 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting

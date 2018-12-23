@@ -1,0 +1,103 @@
+
+SET IDENTITY_INSERT [sec].[Users] ON 
+INSERT [sec].[Users] ([UserId], [Login], [Password], [Name], [Email], [CreatedBy], [CreatedOn], [Modifiedby], [ModifiedOn], [IsActive], [IsDisabledForLogin], [ResetToken], [RegistrationNumber], [SectionId], [ProfilePicName]) VALUES (2, N'amir', N'123', N'Amir Ejaz', N'muhammadamirejaz@gmail.com', 1, CAST(N'2018-10-09T00:00:00.000' AS DateTime), NULL, NULL, 1, 0, NULL, N'BCSF15M004', 3, N'84175f3d-29bb-4431-8429-6085a1e93132.jpg')
+INSERT [sec].[Users] ([UserId], [Login], [Password], [Name], [Email], [CreatedBy], [CreatedOn], [Modifiedby], [ModifiedOn], [IsActive], [IsDisabledForLogin], [ResetToken], [RegistrationNumber], [SectionId], [ProfilePicName]) VALUES (3, N'zahid', N'123', N'Zahid', N'zahid@gmail.com', 1, CAST(N'2018-09-20T00:00:00.000' AS DateTime), NULL, CAST(N'2018-11-28T13:48:18.520' AS DateTime), 1, 0, NULL, N'BCSF15M019', 3, N'f600cb56-bc34-4876-898b-98223fd3d3f5.jpg')
+INSERT [sec].[Users] ([UserId], [Login], [Password], [Name], [Email], [CreatedBy], [CreatedOn], [Modifiedby], [ModifiedOn], [IsActive], [IsDisabledForLogin], [ResetToken], [RegistrationNumber], [SectionId], [ProfilePicName]) VALUES (4, N'izma', N'123', N'Izma', N'izma@gmail.com', 1, CAST(N'2018-09-25T00:00:00.000' AS DateTime), NULL, NULL, 1, 0, NULL, N'BSEF15M005', 1, N'a26e70cc-fe71-4f54-9dcc-8f7c5b5cc7ce.jpg')
+INSERT [sec].[Users] ([UserId], [Login], [Password], [Name], [Email], [CreatedBy], [CreatedOn], [Modifiedby], [ModifiedOn], [IsActive], [IsDisabledForLogin], [ResetToken], [RegistrationNumber], [SectionId], [ProfilePicName]) VALUES (5, N'kinza', N'123', N'Kinza', N'kinza@gmail.com', 1, CAST(N'2018-10-02T00:00:00.000' AS DateTime), NULL, NULL, 1, 0, NULL, N'BSEF15M008', 1, N'52948bce-6ec2-4be7-bf23-1a4b686875c6.jpg')
+INSERT [sec].[Users] ([UserId], [Login], [Password], [Name], [Email], [CreatedBy], [CreatedOn], [Modifiedby], [ModifiedOn], [IsActive], [IsDisabledForLogin], [ResetToken], [RegistrationNumber], [SectionId], [ProfilePicName]) VALUES (6, N'maida', N'123', N'Maida', N'maida@gmail', 1, CAST(N'2018-10-05T00:00:00.000' AS DateTime), NULL, NULL, 1, 0, NULL, N'BCSF15M051', 3, N'0689523f-10ab-4223-bb85-07a6fc5e78d3.jpg')
+INSERT [sec].[Users] ([UserId], [Login], [Password], [Name], [Email], [CreatedBy], [CreatedOn], [Modifiedby], [ModifiedOn], [IsActive], [IsDisabledForLogin], [ResetToken], [RegistrationNumber], [SectionId], [ProfilePicName]) VALUES (7, N'bilal shahzad', N'123', N'Bilal Shahzad', N'bilal@gmail.com', 1, CAST(N'2018-10-06T00:00:00.000' AS DateTime), NULL, NULL, 1, 0, NULL, N'EMP123', 7, N'e5e4295a-c3f5-48fe-9787-01ca47eb6857.jpg')
+SET IDENTITY_INSERT [sec].[Users] OFF
+
+Go
+update  sec.Users set ProfilePicName= 'debdeb76-f936-4348-8b9c-2a7421938046.jpg' ,RegistrationNumber='EMP1' where UserId =1;
+
+
+GO
+SET IDENTITY_INSERT [sec].[Project] ON 
+INSERT [sec].[Project] ([ProjectId], [ProjectTitle], [Description], [Type], [TotalUpVote], [TotalDownVote], [BidCount], [FileName], [UserId], [CreatedOn], [ModifiedOn], [IsActive],[ProjectState]) VALUES (1, N'Student Faculty Portal', N'Student Faculty Interaction', 1, 2, 0, 0, N'abc', 3, CAST(N'2018-09-10T05:34:06.347' AS DateTime), CAST(N'2018-09-10T05:34:06.347' AS DateTime), 1,2)
+INSERT [sec].[Project] ([ProjectId], [ProjectTitle], [Description], [Type], [TotalUpVote], [TotalDownVote], [BidCount], [FileName], [UserId], [CreatedOn], [ModifiedOn], [IsActive],[ProjectState]) VALUES (2, N'Library Managment System', N'For PUCIT', 2, 1, 0, 0, N'xyz', 4, CAST(N'2018-09-20T07:34:06.347' AS DateTime), CAST(N'2018-09-20T07:34:06.347' AS DateTime), 1,2)
+INSERT [sec].[Project] ([ProjectId], [ProjectTitle], [Description], [Type], [TotalUpVote], [TotalDownVote], [BidCount], [FileName], [UserId], [CreatedOn], [ModifiedOn], [IsActive],[ProjectState]) VALUES (3, N'Productivity Measurement System', N'To measure productivity',1, 1, 1, 0, N'asd', 7, CAST(N'2018-10-04T09:50:06.347' AS DateTime), CAST(N'2018-10-04T09:50:06.347' AS DateTime), 1,2)
+INSERT [sec].[Project] ([ProjectId], [ProjectTitle], [Description], [Type], [TotalUpVote], [TotalDownVote], [BidCount], [FileName], [UserId], [CreatedOn], [ModifiedOn], [IsActive],[ProjectState]) VALUES (4, N'Driver Asssist Tool', N'To guide Driver', 2, 0, 0, 0, N'aa', 1, CAST(N'2018-10-15T03:20:06.347' AS DateTime), CAST(N'2018-10-15T03:20:06.347' AS DateTime), 1,2)
+INSERT [sec].[Project] ([ProjectId], [ProjectTitle], [Description], [Type], [TotalUpVote], [TotalDownVote], [BidCount], [FileName], [UserId], [CreatedOn], [ModifiedOn], [IsActive],[ProjectState]) VALUES (5, N'Campus Managment System', N'To manage campus',1, 0, 0, 0, N'asd', 1, CAST(N'2018-11-25T07:20:06.347' AS DateTime), CAST(N'2018-11-25T07:20:06.347' AS DateTime), 1,2)
+SET IDENTITY_INSERT [sec].[Project] OFF
+
+Go
+SET IDENTITY_INSERT [sec].[VoteProjectMapping] ON 
+INSERT [sec].[VoteProjectMapping] ([VPId], [UserId], [ProjectId], [UpVote], [DownVote]) VALUES (3, 1, 1, 1, 0)
+INSERT [sec].[VoteProjectMapping] ([VPId], [UserId], [ProjectId], [UpVote], [DownVote]) VALUES (4, 2, 2, 1, 0)
+INSERT [sec].[VoteProjectMapping] ([VPId], [UserId], [ProjectId], [UpVote], [DownVote]) VALUES (5, 7, 3, 1, 0)
+INSERT [sec].[VoteProjectMapping] ([VPId], [UserId], [ProjectId], [UpVote], [DownVote]) VALUES (6, 3, 4, 0, 1)
+INSERT [sec].[VoteProjectMapping] ([VPId], [UserId], [ProjectId], [UpVote], [DownVote]) VALUES (7, 7, 1, 1, 0)
+INSERT [sec].[VoteProjectMapping] ([VPId], [UserId], [ProjectId], [UpVote], [DownVote]) VALUES (8, 4, 3, 0, 1)
+SET IDENTITY_INSERT [sec].[VoteProjectMapping] OFF
+
+GO
+SET IDENTITY_INSERT [sec].[UserProjectMapping] ON 
+INSERT [sec].[UserProjectMapping] ([UPId], [UserId], [ProjectId]) VALUES (1, 3, 1)
+INSERT [sec].[UserProjectMapping] ([UPId], [UserId], [ProjectId]) VALUES (2, 7, 3)
+INSERT [sec].[UserProjectMapping] ([UPId], [UserId], [ProjectId]) VALUES (3, 4, 2)
+INSERT [sec].[UserProjectMapping] ([UPId], [UserId], [ProjectId]) VALUES (4, 1, 4)
+INSERT [sec].[UserProjectMapping] ([UPId], [UserId], [ProjectId]) VALUES (5, 1, 5)
+SET IDENTITY_INSERT [sec].[UserProjectMapping] OFF
+
+GO
+SET IDENTITY_INSERT [dbo].[Comments] ON 
+INSERT [dbo].[Comments] ([CommentId], [ProjectId], [UserId], [CommentText], [ModifiedOn], [CreatedOn], [isActive]) VALUES (1, 1, 1, N'Good', CAST(N'2018-10-08T00:00:00.000' AS DateTime), CAST(N'2018-10-08T00:00:00.000' AS DateTime), 1)
+INSERT [dbo].[Comments] ([CommentId], [ProjectId], [UserId], [CommentText], [ModifiedOn], [CreatedOn], [isActive]) VALUES (2, 1, 7, N'Interesting one', CAST(N'2018-10-06T00:00:00.000' AS DateTime), CAST(N'2018-10-03T00:00:00.000' AS DateTime), 1)
+INSERT [dbo].[Comments] ([CommentId], [ProjectId], [UserId], [CommentText], [ModifiedOn], [CreatedOn], [isActive]) VALUES (3, 3, 3, N'Good idea', CAST(N'2018-10-01T00:00:00.000' AS DateTime), CAST(N'2018-10-01T00:00:00.000' AS DateTime), 1)
+INSERT [dbo].[Comments] ([CommentId], [ProjectId], [UserId], [CommentText], [ModifiedOn], [CreatedOn], [isActive]) VALUES (4, 1, 7, N'Can you share details?', CAST(N'2018-10-05T00:00:00.000' AS DateTime), CAST(N'2018-09-25T00:00:00.000' AS DateTime), 1)
+INSERT [dbo].[Comments] ([CommentId], [ProjectId], [UserId], [CommentText], [ModifiedOn], [CreatedOn], [isActive]) VALUES (5, 1, 7, N'I want to help you', CAST(N'2018-10-09T00:00:00.000' AS DateTime), CAST(N'2018-10-09T00:00:00.000' AS DateTime), 0)
+INSERT [dbo].[Comments] ([CommentId], [ProjectId], [UserId], [CommentText], [ModifiedOn], [CreatedOn], [isActive]) VALUES (6, 1, 2, N'Great', CAST(N'2018-11-21T18:35:22.910' AS DateTime), CAST(N'2018-11-21T18:35:22.910' AS DateTime), 1)
+INSERT [dbo].[Comments] ([CommentId], [ProjectId], [UserId], [CommentText], [ModifiedOn], [CreatedOn], [isActive]) VALUES (7, 4, 1, N'Good', CAST(N'2018-11-21T18:35:52.960' AS DateTime), CAST(N'2018-11-21T18:35:52.960' AS DateTime), 1)
+INSERT [dbo].[Comments] ([CommentId], [ProjectId], [UserId], [CommentText], [ModifiedOn], [CreatedOn], [isActive]) VALUES (8, 4, 3, N'Great', CAST(N'2018-11-21T18:35:58.463' AS DateTime), CAST(N'2018-11-21T18:35:58.463' AS DateTime), 1)
+INSERT [dbo].[Comments] ([CommentId], [ProjectId], [UserId], [CommentText], [ModifiedOn], [CreatedOn], [isActive]) VALUES (9, 5, 6, N'Good one', CAST(N'2018-11-21T18:37:00.180' AS DateTime), CAST(N'2018-11-21T18:37:00.180' AS DateTime), 1)
+INSERT [dbo].[Comments] ([CommentId], [ProjectId], [UserId], [CommentText], [ModifiedOn], [CreatedOn], [isActive]) VALUES (10, 1, 4, N'Can you contact me?', CAST(N'2018-11-21T18:38:05.423' AS DateTime), CAST(N'2018-11-21T18:38:05.423' AS DateTime), 1)
+INSERT [dbo].[Comments] ([CommentId], [ProjectId], [UserId], [CommentText], [ModifiedOn], [CreatedOn], [isActive]) VALUES (11, 1, 1, N'Yes', CAST(N'2018-11-27T16:10:01.183' AS DateTime), CAST(N'2018-11-27T16:10:01.183' AS DateTime), 1)
+INSERT [dbo].[Comments] ([CommentId], [ProjectId], [UserId], [CommentText], [ModifiedOn], [CreatedOn], [isActive]) VALUES (27, 1, 6, N'Good Idea', CAST(N'2018-11-28T18:59:09.827' AS DateTime), CAST(N'2018-11-28T18:59:09.827' AS DateTime), 1)
+INSERT [dbo].[Comments] ([CommentId], [ProjectId], [UserId], [CommentText], [ModifiedOn], [CreatedOn], [isActive]) VALUES (28, 2, 2, N'GREAT', CAST(N'2018-11-28T18:59:43.320' AS DateTime), CAST(N'2018-11-28T18:59:43.320' AS DateTime), 1)
+INSERT [dbo].[Comments] ([CommentId], [ProjectId], [UserId], [CommentText], [ModifiedOn], [CreatedOn], [isActive]) VALUES (29, 3, 2, N'Interesting one', CAST(N'2018-11-28T18:59:53.927' AS DateTime), CAST(N'2018-11-28T18:59:53.927' AS DateTime), 1)
+INSERT [dbo].[Comments] ([CommentId], [ProjectId], [UserId], [CommentText], [ModifiedOn], [CreatedOn], [isActive]) VALUES (30, 1, 1, N'Good Idea', CAST(N'2018-11-28T19:12:30.040' AS DateTime), CAST(N'2018-11-28T19:12:30.040' AS DateTime), 1)
+INSERT [dbo].[Comments] ([CommentId], [ProjectId], [UserId], [CommentText], [ModifiedOn], [CreatedOn], [isActive]) VALUES (31, 1, 1, N'Good', CAST(N'2018-11-28T19:17:20.153' AS DateTime), CAST(N'2018-11-28T19:17:20.153' AS DateTime), 1)
+SET IDENTITY_INSERT [dbo].[Comments] OFF
+
+
+GO
+SET IDENTITY_INSERT [sec].[Request] ON 
+
+INSERT [sec].[Request] ([RequestId], [ProjectId], [SendBy], [RequestBody], [Status], [Type], [RequestCount], [CreatedOn]) VALUES (3, 1, 2, N'To join group', 1, N'Bid', 1, CAST(N'2018-10-04T09:50:06.347' AS DateTime))
+INSERT [sec].[Request] ([RequestId], [ProjectId], [SendBy], [RequestBody], [Status], [Type], [RequestCount], [CreatedOn]) VALUES (8, 1, 4, N'To join group', 1, N'Bid', 1, CAST(N'2018-10-04T09:50:06.347' AS DateTime))
+INSERT [sec].[Request] ([RequestId], [ProjectId], [SendBy], [RequestBody], [Status], [Type], [RequestCount], [CreatedOn]) VALUES (9, 1, 6, N'To join group', 1, N'Bid', 1, CAST(N'2018-10-04T09:50:06.347' AS DateTime))
+INSERT [sec].[Request] ([RequestId], [ProjectId], [SendBy], [RequestBody], [Status], [Type], [RequestCount], [CreatedOn]) VALUES (10, 1, 3, N'Join my group', 1, N'Add Member', 1, CAST(N'2018-10-04T09:50:06.347' AS DateTime))
+INSERT [sec].[Request] ([RequestId], [ProjectId], [SendBy], [RequestBody], [Status], [Type], [RequestCount], [CreatedOn]) VALUES (11, 3, 5, N'To join group', 1, N'Bid', 1, CAST(N'2018-10-04T09:50:06.347' AS DateTime))
+INSERT [sec].[Request] ([RequestId], [ProjectId], [SendBy], [RequestBody], [Status], [Type], [RequestCount], [CreatedOn]) VALUES (15, 1, 7, N'To join group', 0, N'Bid', 1, CAST(N'2018-09-20T07:34:06.347' AS DateTime))
+INSERT [sec].[Request] ([RequestId], [ProjectId], [SendBy], [RequestBody], [Status], [Type], [RequestCount], [CreatedOn]) VALUES (16, 1, 3, N'Join my group', 0, N'Add Member', 1, CAST(N'2018-09-20T07:34:06.347' AS DateTime))
+INSERT [sec].[Request] ([RequestId], [ProjectId], [SendBy], [RequestBody], [Status], [Type], [RequestCount], [CreatedOn]) VALUES (24, 2, 1, N'Join my group', 0, N'Bid', 1, CAST(N'2018-12-07T19:09:09.280' AS DateTime))
+INSERT [sec].[Request] ([RequestId], [ProjectId], [SendBy], [RequestBody], [Status], [Type], [RequestCount], [CreatedOn]) VALUES (25, 5, 1, N'Join my group', 0, N'Bid', 0, CAST(N'2018-12-07T19:20:41.973' AS DateTime))
+SET IDENTITY_INSERT [sec].[Request] OFF
+
+Go
+
+SET IDENTITY_INSERT [sec].[UserRequestMapping] ON 
+INSERT [sec].[UserRequestMapping] ([URId], [Approver], [RequestId]) VALUES (1, 3, 3)
+INSERT [sec].[UserRequestMapping] ([URId], [Approver], [RequestId]) VALUES (2, 3, 8)
+INSERT [sec].[UserRequestMapping] ([URId], [Approver], [RequestId]) VALUES (3, 3, 9)
+INSERT [sec].[UserRequestMapping] ([URId], [Approver], [RequestId]) VALUES (4, 5, 10)
+INSERT [sec].[UserRequestMapping] ([URId], [Approver], [RequestId]) VALUES (5, 7, 11)
+INSERT [sec].[UserRequestMapping] ([URId], [Approver], [RequestId]) VALUES (6, 7, 12)
+INSERT [sec].[UserRequestMapping] ([URId], [Approver], [RequestId]) VALUES (7, 3, 15)
+INSERT [sec].[UserRequestMapping] ([URId], [Approver], [RequestId]) VALUES (8, 2, 16)
+SET IDENTITY_INSERT [sec].[UserRequestMapping] OFF
+
+GO
+update  sec.Project set ProjectState=3 where ProjectId =1;
+update  sec.Project set ProjectState=1 where ProjectId =2;
+update  sec.Project set ProjectState=3 where ProjectId =3;
+
+GO
+
+
+SET IDENTITY_INSERT [sec].[ProjectType] ON 
+INSERT [sec].[ProjectType] ([ProjTypeId], [Type], [TypeName]) VALUES (1, 1, N'Development')
+INSERT [sec].[ProjectType] ([ProjTypeId], [Type], [TypeName]) VALUES (2, 2, N'Research')
+SET IDENTITY_INSERT [sec].[ProjectType] OFF
+

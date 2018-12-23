@@ -1,0 +1,70 @@
+[Header]\r\n2018-10-06 09:41:10,760 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 09:43:03,904 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 09:43:21,902 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 09:43:46,957 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Footer]\r\n[Header]\r\n2018-10-06 09:44:13,305 [6] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 09:44:26,697 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 10:18:58,357 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 10:20:41,290 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 10:24:05,243 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 10:27:33,786 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 10:29:47,975 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 10:38:38,176 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+<<<<<<< HEAD
+[Header]\r\n2018-10-06 18:42:04,172 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 18:51:41,993 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 18:53:51,246 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 18:58:05,130 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 19:08:57,606 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 20:24:24,635 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 21:16:34,845 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 21:23:06,270 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+=======
+[Header]\r\n2018-10-06 15:14:09,609 [14] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Footer]\r\n[Header]\r\n2018-10-06 15:19:35,171 [14] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Footer]\r\n[Header]\r\n2018-10-06 15:27:54,006 [14] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Header]\r\n2018-10-06 17:06:36,916 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Footer]\r\n[Header]\r\n2018-10-06 17:51:19,435 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+2018-10-06 18:34:49,528 [26] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [GetNotifcations]: An exception has been raised that is likely due to a transient failure. If you are connecting to a SQL Azure database consider using SqlAzureExecutionStrategy.
+System.Data.Entity.Core.EntityException: An exception has been raised that is likely due to a transient failure. If you are connecting to a SQL Azure database consider using SqlAzureExecutionStrategy. ---> System.Data.SqlClient.SqlException: A transport-level error has occurred when receiving results from the server. (provider: TCP Provider, error: 0 - The semaphore timeout period has expired.) ---> System.ComponentModel.Win32Exception: The semaphore timeout period has expired
+   --- End of inner exception stack trace ---
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParserStateObject.ReadSniError(TdsParserStateObject stateObj, UInt32 error)
+   at System.Data.SqlClient.TdsParserStateObject.ReadSniSyncOverAsync()
+   at System.Data.SqlClient.TdsParserStateObject.TryReadNetworkPacket()
+   at System.Data.SqlClient.TdsParserStateObject.TryPrepareBuffer()
+   at System.Data.SqlClient.TdsParserStateObject.TryReadByte(Byte& value)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.<Reader>b__c(DbCommand t, DbCommandInterceptionContext`1 c)
+   at System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   at System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.Reader(DbCommand command, DbCommandInterceptionContext interceptionContext)
+   at System.Data.Entity.Internal.InterceptableDbCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteStoreQueryInternal[TElement](String commandText, String entitySetName, ExecutionOptions executionOptions, Object[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass69`1.<ExecuteStoreQueryReliably>b__68()
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass69`1.<ExecuteStoreQueryReliably>b__67()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   --- End of inner exception stack trace ---
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteStoreQueryReliably[TElement](String commandText, String entitySetName, ExecutionOptions executionOptions, Object[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteStoreQuery[TElement](String commandText, ExecutionOptions executionOptions, Object[] parameters)
+   at System.Data.Entity.Internal.InternalContext.<>c__DisplayClass14`1.<ExecuteSqlQuery>b__13()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at PUCIT.AIMRL.NotificationEngine.DAL.NotificationEngineDataService.GetNotifcations(String appID, Int32 empID, Int32 max_notification_id) in C:\Users\A\Desktop\StudentFacultyPortal\SFP\NotificationServer\PUCIT.AIMRL.NotificationEngine.DAL\NotificationEngineDataService.cs:line 72
+[Footer]\r\n[Header]\r\n2018-10-06 20:22:00,810 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+[Footer]\r\n[Header]\r\n2018-10-06 20:23:19,475 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
+>>>>>>> b30bc4df1112c45f116592c0af4acae71dfc467e

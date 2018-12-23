@@ -1,0 +1,321 @@
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\SFP API.dll.config
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\SFP API.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\SFP API.pdb
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\csc.exe
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\csc.exe.config
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\csc.rsp
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\csi.exe
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\csi.exe.config
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\csi.rsp
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.AppContext.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.Console.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.IO.Compression.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.IO.Pipes.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.Security.Claims.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.ValueTuple.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.Xml.XPath.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\vbc.exe
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\vbc.exe.config
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\vbc.rsp
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\VBCSCompiler.exe
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\Antlr3.Runtime.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\Newtonsoft.Json.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Net.Http.Formatting.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.Helpers.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.Http.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.Http.WebHost.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.Mvc.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.Optimization.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.Razor.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.WebPages.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.WebPages.Razor.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\WebGrease.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\Newtonsoft.Json.xml
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Net.Http.Formatting.xml
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.Helpers.xml
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.Http.xml
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.Http.WebHost.xml
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.Mvc.xml
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.Optimization.xml
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.Razor.xml
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.WebPages.xml
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Web.WebPages.Razor.xml
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\Antlr3.Runtime.pdb
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\obj\Debug\SFP API.csprojAssemblyReference.cache
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\obj\Debug\SFP API.csproj.CoreCompileInputs.cache
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\obj\Debug\SFP API.csproj.CopyComplete
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\obj\Debug\SFP API.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\obj\Debug\SFP API.pdb
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\PUCIT.AIMRL.Common.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\PUCIT.AIMRL.Common.Logger.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\PUCIT.AIMRL.SFP.DAL.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\PUCIT.AIMRL.SFP.Entities.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\PUCIT.AIMRL.SFP.UI.Common.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\log4net.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\EntityFramework.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\PUCIT.AIMRL.Common.Logger.pdb
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\PUCIT.AIMRL.Common.Logger.dll.config
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\PUCIT.AIMRL.Common.pdb
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\PUCIT.AIMRL.SFP.UI.Common.pdb
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\PUCIT.AIMRL.SFP.UI.Common.dll.config
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\PUCIT.AIMRL.SFP.DAL.pdb
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\PUCIT.AIMRL.SFP.DAL.dll.config
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\PUCIT.AIMRL.SFP.Entities.pdb
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\PUCIT.AIMRL.SFP.Entities.dll.config
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\log4net.xml
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\EntityFramework.xml
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\System.Data.SqlClient.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\EntityFramework.SqlServer.dll
+C:\Users\Zahid\Desktop\SFP - Copy\SFP\SFP API\bin\EntityFramework.SqlServer.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\SFP API.dll.config
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\SFP API.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\SFP API.pdb
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\csc.exe
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\csc.exe.config
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\csc.rsp
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\csi.exe
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\csi.exe.config
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\csi.rsp
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.Managed.Core.targets
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.AppContext.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.Collections.Immutable.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.Console.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.IO.Compression.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.IO.FileSystem.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.IO.Pipes.AccessControl.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.IO.Pipes.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.Reflection.Metadata.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.Security.AccessControl.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.Security.Claims.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.Security.Principal.Windows.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.ValueTuple.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.Xml.XPath.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\vbc.exe
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\vbc.exe.config
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\vbc.rsp
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\VBCSCompiler.exe
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\roslyn\VBCSCompiler.exe.config
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\Antlr3.Runtime.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\EntityFramework.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\EntityFramework.SqlServer.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\Microsoft.Web.Infrastructure.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\Newtonsoft.Json.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.Common.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.Common.Logger.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.DAL.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.Entities.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.UI.Common.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Data.SqlClient.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Diagnostics.DiagnosticSource.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Net.Http.Formatting.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.Helpers.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.Http.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.Http.WebHost.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.Mvc.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.Optimization.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.Razor.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.WebPages.Deployment.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.WebPages.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.WebPages.Razor.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\WebGrease.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\log4net.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.Common.Logger.pdb
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.Common.Logger.dll.config
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.Common.pdb
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.UI.Common.pdb
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.UI.Common.dll.config
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.DAL.pdb
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.DAL.dll.config
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.Entities.pdb
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.Entities.dll.config
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\EntityFramework.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\EntityFramework.SqlServer.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\Newtonsoft.Json.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Net.Http.Formatting.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.Helpers.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.Http.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.Http.WebHost.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.Mvc.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.Optimization.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.Razor.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.WebPages.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.WebPages.Deployment.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Web.WebPages.Razor.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\Antlr3.Runtime.pdb
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\System.Diagnostics.DiagnosticSource.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\bin\log4net.xml
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\obj\Debug\SFP API.csprojAssemblyReference.cache
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\obj\Debug\SFP API.csproj.CoreCompileInputs.cache
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\obj\Debug\SFP API.csproj.CopyComplete
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\obj\Debug\SFP API.dll
+E:\Semester07\Mobile computing\SFP - API\SFP\SFP API\obj\Debug\SFP API.pdb
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\SFP API.dll.config
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\SFP API.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\SFP API.pdb
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\csc.exe
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\csc.exe.config
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\csc.rsp
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\csi.exe
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\csi.exe.config
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\csi.rsp
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.AppContext.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.Console.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.IO.Compression.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.IO.Pipes.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.Security.Claims.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.ValueTuple.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.Xml.XPath.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\vbc.exe
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\vbc.exe.config
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\vbc.rsp
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\VBCSCompiler.exe
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\Antlr3.Runtime.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\EntityFramework.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\EntityFramework.SqlServer.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\Newtonsoft.Json.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.Common.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.Common.Logger.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.DAL.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.Entities.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.UI.Common.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Data.SqlClient.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Net.Http.Formatting.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.Helpers.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.Http.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.Http.WebHost.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.Mvc.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.Optimization.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.Razor.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.WebPages.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.WebPages.Razor.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\WebGrease.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\log4net.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.Common.Logger.pdb
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.Common.Logger.dll.config
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.Common.pdb
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.UI.Common.pdb
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.UI.Common.dll.config
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.DAL.pdb
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.DAL.dll.config
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.Entities.pdb
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\PUCIT.AIMRL.SFP.Entities.dll.config
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\EntityFramework.xml
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\EntityFramework.SqlServer.xml
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\Newtonsoft.Json.xml
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Net.Http.Formatting.xml
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.Helpers.xml
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.Http.xml
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.Http.WebHost.xml
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.Mvc.xml
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.Optimization.xml
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.Razor.xml
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.WebPages.xml
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Web.WebPages.Razor.xml
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\Antlr3.Runtime.pdb
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\bin\log4net.xml
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\obj\Debug\SFP API.csprojAssemblyReference.cache
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\obj\Debug\SFP API.csproj.CoreCompileInputs.cache
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\obj\Debug\SFP API.csproj.CopyComplete
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\obj\Debug\SFP API.dll
+C:\Users\Zahid\Desktop\SFP - API\SFP\SFP API\obj\Debug\SFP API.pdb
