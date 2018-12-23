@@ -1,1 +1,0 @@
-[Header]\r\n2018-10-01 23:41:42,643 [1] ERROR PUCIT.AIMRL.Common.Logger.LogHandler [App]: Application Starting
